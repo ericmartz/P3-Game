@@ -25,26 +25,74 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
+  // this = Object.create(Player.prototype)
   this.sprite = 'images/char-boy.png';
+  //TODO: I know the canvas width is 505 and height is 606.
+  //TODO: I feel these initial positions should be calculated dynamically, but using ctx.canvas.width/height
+  //TODO: does not seem to work.  I can reason out that it is out of scope from this function, but in player.render()
+  //TODO: it is in scope.  Trying to figure this out, but spent about 10 hours on it and I need to move on for the momoment
+  //TODO: so this is becoming a TODO.
+  this.positionX = (505 / 2) - 50;
+  this.positionY = 606 - 200;
+  this.moveX = 0;
+  this.moveY = 0;
 }
 
 Player.prototype.render = function() {
-  //Test
+  ctx.drawImage(Resources.get(this.sprite), this.positionX, this.positionY);
 };
 
-Player.prototype.handleInput = function() {
-  //Test
+Player.prototype.handleInput = function(keyCode) {
+  if (keyCode === 'up'){
+    if (player.positionY === -9) {
+      this.moveX = 0;
+      this.moveY = 0;
+    } else {
+      this.moveX = 0;
+      this.moveY = -83;
+    }
+  } else if (keyCode === 'down'){
+    if (player.positionY === 406) {
+      this.moveX = 0;
+      this.moveY = 0;
+    } else {
+      this.moveX = 0;
+      this.moveY = 83;
+    }
+  } else if (keyCode === 'left'){
+    if (player.positionX === 2.5) {
+      this.moveX = 0;
+      this.moveY = 0;
+    } else {
+      this.moveX = -100;
+      this.moveY = 0;
+    }
+  } else if (keyCode === 'right'){
+    if (player.positionX === 402.5) {
+      this.moveX = 0;
+      this.moveY = 0;
+    } else {
+      this.moveX = 100;
+      this.moveY = 0;
+    }
+  }
 }
 
 Player.prototype.update = function() {
-  //Test
+  // console.log(this.positionX);
+  // console.log(this.positionY);
+  this.positionX += this.moveX;
+  this.positionY += this.moveY;
+
+  this.moveX = 0;
+  this.moveY = 0;
 }
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var player = new Player;
 var allEnemies = [];
+var player = new Player();
 
 
 // This listens for key presses and sends the keys to your
