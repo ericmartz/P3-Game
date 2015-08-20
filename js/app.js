@@ -42,6 +42,10 @@ Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.positionX, this.positionY);
 };
 
+//TODO: Currently, handleInput takes care of two different pieces of logic.  First, it sets the number of pixels the player will be moved.
+//TODO: Second, it also checks where the player is and prevents the player from moving off the board.  I probably need to create a method
+//TODO: to handle the validation that the player will not move off the board.
+// handleInput() takes in the keyCode, determines which key was pressed and sets the number of pixels the player will move.
 Player.prototype.handleInput = function(keyCode) {
   if (keyCode === 'up'){
     if (player.positionY === -9) {
