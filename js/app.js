@@ -9,6 +9,7 @@ var Enemy = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
+    this.width = 75; //width of the bug sprite is actually 101, but making it 75 is close to where the characters actually touch.
 }
 
 // Update the enemy's position, required method for game
@@ -17,9 +18,9 @@ Enemy.prototype.update = function(dt) {
   // You should multiply any movement by the dt parameter
   // which will ensure the game runs at the same speed for
   // all computers.
-  console.log(dt);
   this.x += this.speed * dt;
   this.checkBounds();
+  this.checkCollisions();
 }
 
 // Draw the enemy on the screen, required method for game
@@ -30,6 +31,14 @@ Enemy.prototype.render = function() {
 Enemy.prototype.checkBounds = function() {
   if (this.x >= 515){
     this.x = -100;
+  }
+}
+
+Enemy.prototype.checkCollisions = function() {
+  if ((this.x + this.width) > player.positionX && 
+     (this.x < player.positionX + player.width) && 
+     (player.positionY - this.y === 10) ){ //Probably different from most games, but I lowered the character so it appears within the square
+    player.resetPlayer();
   }
 }
 
@@ -47,9 +56,12 @@ var Player = function() {
   this.positionY = 606 - 200; //Initial Y position
   this.moveX = 0;
   this.moveY = 0;
+  this.width = 75; // Like the bug sprite, 101 is the actual width, but 75 seems to be a good number to make the characters visibly collide.
 }
 
-Player.prototype.playerSafe = function() {
+// I originally names this playerSafe() because the first thing I did was check for the player reaching the goal and resetting it.  
+// Then I used it for the checkCollisions() method and decided to rename it to resetPlayer().
+Player.prototype.resetPlayer = function() {
   this.positionX = (505 / 2) - 50;
   this.positionY = 606 - 200;
 }
@@ -99,13 +111,11 @@ Player.prototype.handleInput = function(keyCode) {
 }
 
 Player.prototype.update = function() {
-  // console.log(this.positionX);
-  // console.log(this.positionY);
   this.positionX += this.moveX;
   this.positionY += this.moveY;
 
   if (this.positionY === -9) {
-    this.playerSafe();
+    this.resetPlayer();
   }
 
   this.moveX = 0;
@@ -116,9 +126,16 @@ Player.prototype.update = function() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [
-  //TODO: Create way to randamnly generate enemies?  
-  enemy1 = new Enemy(1, 230, 100),
-  enemy1 = new Enemy(-150, 147, 200)
+  //TODO: Create way to randamnly generate enemies?
+  // Enemy constuctor takes 3 arguments, x. y. and speed. 
+  // y = 230 is first row
+  // y = 147 is second row
+  // y = 64 is third row
+  enemy1 = new Enemy(1, 230, 100), // 1st row
+  enemy2 = new Enemy(-150, 147, 200), // 2nd row
+  enemy3 = new Enemy(-75, 64, 250), // 3rd row
+  enemy4 = new Enemy(1, 147, 75), // 2nd row
+  enemy5 = new Enemy(-250, 64, 100), //3rd row
 ];
 var player = new Player();
 
