@@ -66,13 +66,19 @@ var Player = function() {
   this.moveX = 0;
   this.moveY = 0;
   this.width = 75; // Like the bug sprite, 101 is the actual width, but 75 seems to be a good number to make the characters visibly collide.
+  this.score = 0;
 }
 
-// I originally names this playerSafe() because the first thing I did was check for the player reaching the goal and resetting it.  
-// Then I used it for the checkCollisions() method and decided to rename it to resetPlayer().
 Player.prototype.resetPlayer = function() {
   this.positionX = (505 / 2) - 50;
   this.positionY = 606 - 200;
+}
+
+Player.prototype.playerScored = function() {
+  var myScore = document.getElementById('myScore');
+  this.score += 10;
+  myScore.innerHTML = this.score;
+  this.resetPlayer();
 }
 
 Player.prototype.render = function() {
@@ -124,7 +130,7 @@ Player.prototype.update = function() {
   this.positionY += this.moveY;
 
   if (this.positionY === -9) {
-    this.resetPlayer();
+    this.playerScored();
   }
 
   this.moveX = 0;
