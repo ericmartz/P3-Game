@@ -1,14 +1,33 @@
+// These variables are to help determine the enemy's movement direction
+var enemyRight = 'right';
+var enemyLeft = 'left';
 
-var Enemy = function(x, y, speed) {
-  this.sprite = 'images/enemy-bug.png';
+var Enemy = function(x, y, speed, direction) {
+  if (direction === enemyRight) {
+    this.sprite = 'images/enemy-bug-right.png';
+  }
+
+  if (direction === enemyLeft) {
+    this.sprite = 'images/enemy-bug-left.png';
+  }
   this.x = x;
   this.y = y;
   this.speed = speed;
+  this.direction = direction;
   this.width = 75; //width of the bug sprite is actually 101, but making it 75 is close to where the characters actually touch.
 }
 
 Enemy.prototype.update = function(dt) {
-  this.x += this.speed * dt;
+  // Movement update for enemies moving right
+  if (this.direction === enemyRight) {
+    this.x += this.speed * dt;
+  }
+
+  // Movement update for enemies moving left
+  if (this.direction === enemyLeft) {
+    this.x -= this.speed * dt;
+  }
+
   this.checkBounds();
   this.checkCollisions();
 }
@@ -18,8 +37,12 @@ Enemy.prototype.render = function() {
 }
 
 Enemy.prototype.checkBounds = function() {
-  if (this.x >= 515){
+  if (this.direction === enemyRight && this.x >= 515) {
     this.x = -100;
+  }
+
+  if (this.direction === enemyLeft && this.x <= -100) {
+    this.x = 650;
   }
 }
 
@@ -109,16 +132,16 @@ Player.prototype.update = function() {
 }
 
 var allEnemies = [
-  //TODO: Create way to randamnly generate enemies?
-  // Enemy constuctor takes 3 arguments, x. y. and speed. 
+  //TODO: Create way to randomnly generate enemies?
+  // Enemy constuctor takes 3 arguments: x, y, and speed. 
   // y = 230 is first row
   // y = 147 is second row
   // y = 64 is third row
-  enemy1 = new Enemy(1, 230, 100), // 1st row
-  enemy2 = new Enemy(-150, 147, 200), // 2nd row
-  enemy3 = new Enemy(-75, 64, 250), // 3rd row
-  enemy4 = new Enemy(1, 147, 75), // 2nd row
-  enemy5 = new Enemy(-250, 64, 100), //3rd row
+  enemy1 = new Enemy(1, 230, 100, enemyRight), // 1st row
+  enemy2 = new Enemy(550, 147, 200, enemyLeft), // 2nd row
+  enemy3 = new Enemy(-75, 64, 250, enemyRight), // 3rd row
+  enemy4 = new Enemy(750, 147, 75, enemyLeft), // 2nd row
+  enemy5 = new Enemy(-250, 64, 100, enemyRight), //3rd row
 ];
 var player = new Player();
 
