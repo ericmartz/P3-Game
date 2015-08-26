@@ -10,6 +10,8 @@ var leftBound = 2.5
 
 var gameLevel = 1;
 
+// gameState, gsPause and gsPlay are all variables used for the game state.  Specifically to tell if the game 
+// should be paused or in play.
 var gsPause = 'paused';
 var gsPlay = 'play';
 
@@ -30,6 +32,7 @@ var Enemy = function(x, y, speed, direction) {
 
 Enemy.prototype.update = function(dt) {
 
+  // As the character reaches the water, the game levels up.  As the game levels up, the characters move faster.
   var multiplier = gameLevel / 10 + 1;
 
   //Movement update for enemies moving right
@@ -93,9 +96,9 @@ Player.prototype.resetPlayer = function() {
 Player.prototype.playerScored = function() {
   //Thought about using jQuery to append the score to the webpage, but it seemed like a lot for just a score, and I thought I would try my hand at
   //doing it without jQuery's help.
-  var myScore = document.getElementById('myScore');
+  var displayScore = document.getElementById('displayScore');
   this.score += 10;
-  myScore.innerHTML = this.score;
+  displayScore.innerHTML = this.score;
   this.resetPlayer();
   levelUp();
 }
