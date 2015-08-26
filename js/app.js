@@ -8,6 +8,8 @@ var lowerBound = 406
 var rightBound = 402.5
 var leftBound = 2.5
 
+var gameLevel = 1;
+
 var Enemy = function(x, y, speed, direction) {
   if (direction === enemyRight) {
     this.sprite = 'images/enemy-bug-right.png';
@@ -24,14 +26,17 @@ var Enemy = function(x, y, speed, direction) {
 }
 
 Enemy.prototype.update = function(dt) {
+
+  var multiplier = gameLevel / 10 + 1;
+
   //Movement update for enemies moving right
   if (this.direction === enemyRight) {
-    this.x += this.speed * dt;
+    this.x += this.speed * dt * multiplier;
   }
 
   //Movement update for enemies moving left
   if (this.direction === enemyLeft) {
-    this.x -= this.speed * dt;
+    this.x -= this.speed * dt * multiplier;
   }
 
   this.checkBounds();
@@ -68,12 +73,12 @@ var Player = function() {
   //TODO: I feel these initial positions should be calculated dynamically, but using ctx.canvas.width/height
   //TODO: does not seem to work.  I can reason out that it is out of scope from this function, but in player.render()
   //TODO: it is in scope.  Trying to figure this out, but spent about 10 hours on it and I need to move on for the moment
-  //TODO: so this is becoming a TODO.
+  //TODO: so this is becoming a TODO.  Update 9/26: I think the scoping issue might have to do with the prototype chain.  Reasearching.
   this.positionX = (505 / 2) - 50; //Initial X position
   this.positionY = 606 - 200; //Initial Y position
   this.moveX = 0;
   this.moveY = 0;
-  this.width = 75; // Like the bug sprite, 101 is the actual width, but 75 seems to be a good number to make the characters visibly collide.
+  this.width = 75; // Like the bug sprite, 101 is the actual width.  But 75 seems to be a good number to make the characters visibly collide.
   this.score = 0;
 }
 
@@ -89,6 +94,7 @@ Player.prototype.playerScored = function() {
   this.score += 10;
   myScore.innerHTML = this.score;
   this.resetPlayer();
+  levelUp();
 }
 
 Player.prototype.render = function() {
@@ -150,7 +156,7 @@ Player.prototype.update = function() {
 
 var allEnemies = [
   //TODO: Create way to randomnly generate enemies?
-  //Enemy constuctor takes 3 arguments: x, y, and speed. 
+  //Enemy constuctor takes 4 arguments: x, y, speed and direction. 
   //y = 230 is first row
   //y = 147 is second row
   //y = 64 is third row
@@ -161,6 +167,10 @@ var allEnemies = [
   enemy5 = new Enemy(-250, 64, 100, enemyRight), //3rd row
 ];
 var player = new Player();
+
+var levelUp = function() {
+  gameLevel += 1;
+}
 
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
