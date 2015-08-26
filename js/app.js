@@ -3,10 +3,10 @@ var enemyRight = 'right';
 var enemyLeft = 'left';
 
 //These variabless are used to set the bounds of the board.
-var upperBound = -9
-var lowerBound = 406
-var rightBound = 402.5
-var leftBound = 2.5
+var upperBound = -9;
+var lowerBound = 406;
+var rightBound = 402.5;
+var leftBound = 2.5;
 
 var gameLevel = 1;
 
@@ -28,7 +28,7 @@ var Enemy = function(x, y, speed, direction) {
   this.speed = speed;
   this.direction = direction;
   this.width = 75; //width of the bug sprite is actually 101, but making it 75 is close to where the characters actually touch.
-}
+};
 
 Enemy.prototype.update = function(dt) {
 
@@ -47,11 +47,11 @@ Enemy.prototype.update = function(dt) {
 
   this.checkBounds();
   this.checkCollisions();
-}
+};
 
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Enemy.prototype.checkBounds = function() {
   //Check bounds for enemies moving right
@@ -63,15 +63,15 @@ Enemy.prototype.checkBounds = function() {
   if (this.direction === enemyLeft && this.x <= -100) {
     this.x = 650;
   }
-}
+};
 
 Enemy.prototype.checkCollisions = function() {
-  if ((this.x + this.width) > player.positionX && 
-     (this.x < player.positionX + player.width) && 
-     (player.positionY - this.y === 10) ){ //Probably different from most games, but I lowered the character so it appears within each square
+  if ((this.x + this.width) > player.positionX &&
+    (this.x < player.positionX + player.width) &&
+    (player.positionY - this.y === 10)) { //Probably different from most games, but I lowered the character so it appears within each square
     player.resetPlayer();
   }
-}
+};
 
 var Player = function() {
   this.sprite = 'images/char-boy.png';
@@ -86,12 +86,12 @@ var Player = function() {
   this.moveY = 0;
   this.width = 75; // Like the bug sprite, 101 is the actual width.  But 75 seems to be a good number to make the characters visibly collide.
   this.score = 0;
-}
+};
 
 Player.prototype.resetPlayer = function() {
   this.positionX = (505 / 2) - 50;
   this.positionY = 606 - 200;
-}
+};
 
 Player.prototype.playerScored = function() {
   //Thought about using jQuery to append the score to the webpage, but it seemed like a lot for just a score, and I thought I would try my hand at
@@ -101,7 +101,7 @@ Player.prototype.playerScored = function() {
   displayScore.innerHTML = this.score;
   this.resetPlayer();
   levelUp();
-}
+};
 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.positionX, this.positionY);
@@ -112,7 +112,7 @@ Player.prototype.render = function() {
 //TODO: to handle the validation that the player will not move off the board.
 //handleInput() takes in the keyCode, determines which key was pressed and sets the number of pixels the player will move.
 Player.prototype.handleInput = function(keyCode) {
-  if (keyCode === 'up'){
+  if (keyCode === 'up') {
     if (this.positionY === upperBound) {
       this.moveX = 0;
       this.moveY = 0;
@@ -120,15 +120,15 @@ Player.prototype.handleInput = function(keyCode) {
       this.moveX = 0;
       this.moveY = -83;
     }
-  } else if (keyCode === 'down'){
-      if (this.positionY === lowerBound) {
+  } else if (keyCode === 'down') {
+    if (this.positionY === lowerBound) {
       this.moveX = 0;
       this.moveY = 0;
     } else {
       this.moveX = 0;
       this.moveY = 83;
     }
-  } else if (keyCode === 'left'){
+  } else if (keyCode === 'left') {
     if (this.positionX === leftBound) {
       this.moveX = 0;
       this.moveY = 0;
@@ -136,7 +136,7 @@ Player.prototype.handleInput = function(keyCode) {
       this.moveX = -100;
       this.moveY = 0;
     }
-  } else if (keyCode === 'right'){
+  } else if (keyCode === 'right') {
     if (this.positionX === rightBound) {
       this.moveX = 0;
       this.moveY = 0;
@@ -147,7 +147,7 @@ Player.prototype.handleInput = function(keyCode) {
   } else if (keyCode === 'spacebar') {
     updateGameState();
   }
-}
+};
 
 Player.prototype.update = function() {
   this.positionX += this.moveX;
@@ -160,7 +160,7 @@ Player.prototype.update = function() {
 
   this.moveX = 0;
   this.moveY = 0;
-}
+};
 
 var allEnemies = [
   //TODO: Create way to randomnly generate enemies?
@@ -178,24 +178,24 @@ var player = new Player();
 
 var levelUp = function() {
   gameLevel += 1;
-}
+};
 
-var updateGameState = function () {
+var updateGameState = function() {
   if (gameState === gsPause) {
     gameState = gsPlay;
   } else if (gameState === gsPlay) {
     gameState = gsPause;
   }
-}
+};
 
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        32: 'spacebar',
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
+  var allowedKeys = {
+    32: 'spacebar',
+    37: 'left',
+    38: 'up',
+    39: 'right',
+    40: 'down'
+  };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+  player.handleInput(allowedKeys[e.keyCode]);
 });
