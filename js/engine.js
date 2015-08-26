@@ -81,13 +81,11 @@ var Engine = (function(global) {
     function update(dt) {
         switch (gameState) {
             case gsPlay:
-                ctx.globalAlpha = 1;
                 updateEntities(dt);
                 // checkCollisions();
                 break;
             case gsPause:
-                // Adding this looks ugly, because the tiles overlap each other.  But I'm not going for pretty, so I am leaving it here.
-                ctx.globalAlpha = 0.1;
+                //Not doing anything if the game is paused
                 break;
         }
         
@@ -148,6 +146,22 @@ var Engine = (function(global) {
 
 
         renderEntities();
+        switch (gameState) {
+            case gsPlay:
+                // Not doing anything if the game is playing
+                break;
+            case gsPause:
+                renderPauseEffect();
+                break;
+        } 
+    }
+
+    function renderPauseEffect() {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.fillRect(0, 0, 505, 606);
+        ctx.font = '48px sans-serif';
+        ctx.fillStyle = 'black';
+        ctx.fillText('Game Paused', 99, 250);
     }
 
     /* This function is called by the render function and is called on each game
