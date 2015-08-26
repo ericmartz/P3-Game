@@ -10,12 +10,15 @@ var leftBound = 2.5
 
 var gameLevel = 1;
 
+var gsPause = 'paused';
+var gsPlay = 'play';
+
+var gameState = gsPlay;
+
 var Enemy = function(x, y, speed, direction) {
   if (direction === enemyRight) {
     this.sprite = 'images/enemy-bug-right.png';
-  }
-
-  if (direction === enemyLeft) {
+  } else if (direction === enemyLeft) {
     this.sprite = 'images/enemy-bug-left.png';
   }
   this.x = x;
@@ -138,6 +141,8 @@ Player.prototype.handleInput = function(keyCode) {
       this.moveX = 100;
       this.moveY = 0;
     }
+  } else if (keyCode === 'spacebar') {
+    updateGameState();
   }
 }
 
@@ -172,8 +177,17 @@ var levelUp = function() {
   gameLevel += 1;
 }
 
+var updateGameState = function () {
+  if (gameState === gsPause) {
+    gameState = gsPlay;
+  } else if (gameState === gsPlay) {
+    gameState = gsPause;
+  }
+}
+
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
+        32: 'spacebar',
         37: 'left',
         38: 'up',
         39: 'right',

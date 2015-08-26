@@ -79,8 +79,18 @@ var Engine = (function(global) {
      * on the entities themselves within your app.js file).
      */
     function update(dt) {
-        updateEntities(dt);
-        // checkCollisions();
+        switch (gameState) {
+            case gsPlay:
+                ctx.globalAlpha = 1;
+                updateEntities(dt);
+                // checkCollisions();
+                break;
+            case gsPause:
+                // Adding this looks ugly, because the tiles overlap each other.  But I'm not going for pretty, so I am leaving it here.
+                ctx.globalAlpha = 0.1;
+                break;
+        }
+        
     }
 
     /* This is called by the update function  and loops through all of the
