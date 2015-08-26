@@ -146,6 +146,8 @@ var Engine = (function(global) {
 
 
         renderEntities();
+
+        // Checks gameState variable to determine if game needs to add a pause effect.
         switch (gameState) {
             case gsPlay:
                 // Not doing anything if the game is playing
