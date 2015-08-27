@@ -71,9 +71,9 @@ Enemy.prototype.checkBounds = function() {
 
 //checkCollisions checks to see if the enemy has collided with the player's character, and calls resetPlayer if a collision occurs.
 Enemy.prototype.checkCollisions = function() {
-  if ((this.x + this.width) > player.positionX && 
-     (this.x < player.positionX + player.width) && 
-     (player.positionY - this.y === 10) ){ //Probably different from most games, but I lowered the character so it appears within each square
+  if ((this.x + this.width) > player.positionX &&
+    (this.x < player.positionX + player.width) &&
+    (player.positionY - this.y === 10)) { //Probably different from most games, but I lowered the character so it appears within each square
     player.resetPlayer();
   }
 };
@@ -121,7 +121,7 @@ Player.prototype.render = function() {
 //TODO: to handle the validation that the player will not move off the board.
 //handleInput() takes in the keyCode, determines which key was pressed and sets the number of pixels the player will move.
 Player.prototype.handleInput = function(keyCode) {
-  if (keyCode === 'up'){
+  if (keyCode === 'up') {
     if (this.positionY === upperBound) {
       this.moveX = 0;
       this.moveY = 0;
@@ -129,15 +129,15 @@ Player.prototype.handleInput = function(keyCode) {
       this.moveX = 0;
       this.moveY = -83;
     }
-  } else if (keyCode === 'down'){
-      if (this.positionY === lowerBound) {
+  } else if (keyCode === 'down') {
+    if (this.positionY === lowerBound) {
       this.moveX = 0;
       this.moveY = 0;
     } else {
       this.moveX = 0;
       this.moveY = 83;
     }
-  } else if (keyCode === 'left'){
+  } else if (keyCode === 'left') {
     if (this.positionX === leftBound) {
       this.moveX = 0;
       this.moveY = 0;
@@ -145,7 +145,7 @@ Player.prototype.handleInput = function(keyCode) {
       this.moveX = -100;
       this.moveY = 0;
     }
-  } else if (keyCode === 'right'){
+  } else if (keyCode === 'right') {
     if (this.positionX === rightBound) {
       this.moveX = 0;
       this.moveY = 0;
@@ -195,8 +195,12 @@ var levelUp = function() {
   gameLevel += 1;
 };
 
+<<<<<<< HEAD
 //updateGameState toggles the game state from play to pause and vice versa when the spacebar is pressed
 var updateGameState = function () {
+=======
+var updateGameState = function() {
+>>>>>>> af6cadc45525794cb28126a131096551c591f8ec
   if (gameState === gsPause) {
     gameState = gsPlay;
   } else if (gameState === gsPlay) {
@@ -206,13 +210,13 @@ var updateGameState = function () {
 
 //Event listener that looks for key presses.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        32: 'spacebar',
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
+  var allowedKeys = {
+    32: 'spacebar',
+    37: 'left',
+    38: 'up',
+    39: 'right',
+    40: 'down'
+  };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+  player.handleInput(allowedKeys[e.keyCode]);
 });
