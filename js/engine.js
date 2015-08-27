@@ -57,7 +57,7 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
-    };
+    }
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
@@ -158,6 +158,7 @@ var Engine = (function(global) {
         } 
     }
 
+    //Renders the pause effect when called. Adds a transparent white screen to the board and the words "Game Paused"
     function renderPauseEffect() {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
         ctx.fillRect(0, 0, 505, 606);

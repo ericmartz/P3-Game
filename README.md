@@ -5,7 +5,9 @@ Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015
 
 for self-checking their submission.
 
-This game can be played by visiting http://ericmartz.github.io/P3-Game/ 
+This game can be played by visiting http://ericmartz.github.io/P3-Game/
+
+The game can also be played by cloning, or downloading the repository and double clicking on index.html.
 
 To play the game, use the directional arrows to move the play around the game board.
 Pressing the space bar will pause the game.
