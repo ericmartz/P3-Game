@@ -41,31 +41,8 @@ var Engine = (function(global) {
     var now = Date.now(),
       dt = (now - lastTime) / 1000.0;
 
-<<<<<<< HEAD
-        /* Call our update/render functions, pass along the time delta to
-         * our update function since it may be used for smooth animation.
-         */
-        update(dt);
-        render();
-
-        /* Set our lastTime variable which is used to determine the time delta
-         * for the next time this function is called.
-         */
-        lastTime = now;
-
-        /* Use the browser's requestAnimationFrame function to call this
-         * function again as soon as the browser is able to draw another frame.
-         */
-        win.requestAnimationFrame(main);
-    }
-
-    /* This function does some initial setup that should only occur once,
-     * particularly setting the lastTime variable that is required for the
-     * game loop.
-=======
     /* Call our update/render functions, pass along the time delta to
      * our update function since it may be used for smooth animation.
->>>>>>> af6cadc45525794cb28126a131096551c591f8ec
      */
     update(dt);
     render();
@@ -166,29 +143,6 @@ var Engine = (function(global) {
       }
     }
 
-<<<<<<< HEAD
-    //Renders the pause effect when called. Adds a transparent white screen to the board and the words "Game Paused"
-    function renderPauseEffect() {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-        ctx.fillRect(0, 0, 505, 606);
-        ctx.font = '48px sans-serif';
-        ctx.fillStyle = 'black';
-        ctx.fillText('Game Paused', 99, 250);
-    }
-
-    /* This function is called by the render function and is called on each game
-     * tick. It's purpose is to then call the render functions you have defined
-     * on your enemy and player entities within app.js
-     */
-    function renderEntities() {
-        /* Loop through all of the objects within the allEnemies array and call
-         * the render function you have defined.
-         */
-        allEnemies.forEach(function(enemy) {
-            enemy.render();
-        });
-=======
->>>>>>> af6cadc45525794cb28126a131096551c591f8ec
 
     renderEntities();
 

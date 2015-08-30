@@ -195,12 +195,9 @@ var levelUp = function() {
   gameLevel += 1;
 };
 
-<<<<<<< HEAD
+
 //updateGameState toggles the game state from play to pause and vice versa when the spacebar is pressed
-var updateGameState = function () {
-=======
 var updateGameState = function() {
->>>>>>> af6cadc45525794cb28126a131096551c591f8ec
   if (gameState === gsPause) {
     gameState = gsPlay;
   } else if (gameState === gsPlay) {
