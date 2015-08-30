@@ -87,7 +87,6 @@ var Engine = (function(global) {
         //Not doing anything if the game is paused
         break;
     }
-
   }
 
   /* This is called by the update function  and loops through all of the
